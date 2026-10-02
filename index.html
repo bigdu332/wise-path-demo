@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wise Path｜跨站智能学习导航 Demo</title>
+    <meta
+      name="description"
+      content="基于 Wise Invest、CHAIN、Wise ETF、Wise Crypto 等公开网站结构制作的跨站学习路径 Demo。"
+    />
+    <meta name="theme-color" content="#07130f" />
+    <meta property="og:title" content="Wise Path｜跨站智能学习导航 Demo" />
+    <meta
+      property="og:description"
+      content="从用户问题出发，在 Wise 的多个网站之间生成一条清晰、可执行的三步路径。"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Wise Path",
+        "applicationCategory": "EducationalApplication",
+        "description": "A candidate concept demo for navigating public Wise learning and investing resources by user intent.",
+        "inLanguage": "zh-CN"
+      }
+    </script>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="回到顶部">
+        <span class="brand-mark">W</span>
+        <span>WISE PATH</span>
+        <span class="badge">CONCEPT</span>
+      </a>
+      <nav aria-label="页面导航">
+        <a href="#navigator">目标导航</a>
+        <a href="#ecosystem">站点地图</a>
+        <a href="#rationale">设计说明</a>
+      </nav>
+      <a class="header-cta" href="#navigator">生成路径 <span>↘</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> CANDIDATE PRODUCT DEMO · 2026</p>
+          <h1>不要先找网站。<br /><em>先说你想解决什么。</em></h1>
+          <p class="hero-lede">
+            Wise 的内容已经很丰富。这个原型补上一层跨站入口：识别目标、经验和可用时间，
+            把分散在多个站点的内容串成一条清晰路径。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#navigator">开始生成 <span>→</span></a>
+            <a class="button ghost" href="#rationale">查看设计判断</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="跨站路径示意图">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="hub-card">
+            <span class="hub-kicker">ONE INTENT</span>
+            <strong>一个问题</strong>
+            <span>生成跨站路径</span>
+          </div>
+          <div class="node node-chain"><i>CH</i><span>CHAIN</span></div>
+          <div class="node node-etf"><i>ET</i><span>ETF</span></div>
+          <div class="node node-crypto"><i>CR</i><span>CRYPTO</span></div>
+          <div class="node node-hold"><i>HD</i><span>HOLD</span></div>
+          <div class="route-line line-a"></div>
+          <div class="route-line line-b"></div>
+          <div class="route-line line-c"></div>
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="产品价值摘要">
+        <div><strong>01</strong><span>目标优先</span><small>先识别问题，再选择站点</small></div>
+        <div><strong>03</strong><span>三步路径</span><small>理解、分析、行动</small></div>
+        <div><strong>08</strong><span>公开站点</span><small>统一入口，保留原内容</small></div>
+        <div><strong>SEO</strong><span>意图落地页</span><small>可扩展为可索引的主题页</small></div>
+      </section>
+
+      <section class="navigator-section shell" id="navigator">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> LIVE PROTOTYPE</p>
+          <h2>从一个真实问题开始</h2>
+          <p>选择目标，或直接输入一句话。原型会根据关键词、经验和时间生成一条可执行路径。</p>
+        </div>
+
+        <div class="navigator-grid">
+          <form class="control-panel" id="path-form">
+            <div class="panel-topline">
+              <span>01 / 你的需求</span>
+              <span class="status-dot">规则路由在线</span>
+            </div>
+
+            <label class="field-label" for="question">你现在想解决什么？</label>
+            <div class="search-field">
+              <span aria-hidden="true">⌕</span>
+              <input
+                id="question"
+                name="question"
+                type="text"
+                autocomplete="off"
+                placeholder="例如：我想开始学美股 AI 产业链"
+              />
+              <kbd>ENTER</kbd>
+            </div>
+
+            <fieldset>
+              <legend>选择目标</legend>
+              <div class="goal-grid" id="goal-grid">
+                <button type="button" class="goal-option active" data-goal="us">
+                  <span class="goal-icon">↗</span><span><strong>美股学习</strong><small>宏观 · 产业 · 公司</small></span>
+                </button>
+                <button type="button" class="goal-option" data-goal="etf">
+                  <span class="goal-icon">◎</span><span><strong>ETF / QDII</strong><small>估值 · 溢价 · 定投</small></span>
+                </button>
+                <button type="button" class="goal-option" data-goal="crypto">
+                  <span class="goal-icon">◇</span><span><strong>加密市场</strong><small>行情 · 风险 · 工具</small></span>
+                </button>
+                <button type="button" class="goal-option" data-goal="hold">
+                  <span class="goal-icon">▦</span><span><strong>聪明资金</strong><small>机构 · 名人持仓</small></span>
+                </button>
+                <button type="button" class="goal-option" data-goal="ipo">
+                  <span class="goal-icon">△</span><span><strong>新股机会</strong><small>美股 · 港股 · A股</small></span>
+                </button>
+                <button type="button" class="goal-option" data-goal="overseas">
+                  <span class="goal-icon">◌</span><span><strong>出海服务</strong><small>开户 · 通信 · 工具</small></span>
+                </button>
+              </div>
+            </fieldset>
+
+            <div class="paired-fields">
+              <fieldset>
+                <legend>我的经验</legend>
+                <div class="segmented" data-control="experience">
+                  <button type="button" class="active" data-value="beginner">第一次接触</button>
+                  <button type="button" data-value="familiar">有些基础</button>
+                  <button type="button" data-value="active">正在实操</button>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>可用时间</legend>
+                <div class="segmented" data-control="time">
+                  <button type="button" data-value="10">10 分钟</button>
+                  <button type="button" class="active" data-value="30">30 分钟</button>
+                  <button type="button" data-value="deep">系统学习</button>
+                </div>
+              </fieldset>
+            </div>
+
+            <button class="generate-button" type="submit">
+              <span>生成我的 Wise 路径</span>
+              <span class="generate-arrow">→</span>
+            </button>
+            <p class="privacy-note">不收集输入内容 · 本原型不提供投资建议</p>
+          </form>
+
+          <section class="result-panel" aria-live="polite" aria-labelledby="result-title">
+            <div class="panel-topline">
+              <span>02 / 推荐路径</span>
+              <span id="result-fit">匹配度 94%</span>
+            </div>
+            <div class="result-intro">
+              <div>
+                <p class="result-kicker" id="result-kicker">美股入门 · 30 分钟</p>
+                <h3 id="result-title">先建立框架，再追一条产业链</h3>
+              </div>
+              <div class="path-count"><strong>3</strong><span>STEPS</span></div>
+            </div>
+            <p class="result-summary" id="result-summary">
+              你是第一次接触。先在主站建立投资框架，再进入 CHAIN 理解宏观与产业关系，最后用产业地图验证公司位置。
+            </p>
+            <div class="path-list" id="path-list"></div>
+            <div class="result-footer">
+              <span><i></i> 所有链接均指向 Wise 现有公开页面</span>
+              <button type="button" id="copy-path">复制路径摘要</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="ecosystem-section" id="ecosystem">
+        <div class="shell">
+          <div class="section-heading split-heading">
+            <div>
+              <p class="eyebrow"><span></span> ECOSYSTEM MAP</p>
+              <h2>已有内容很强，缺的是一层统一路由</h2>
+            </div>
+            <p>原型保留每个站点的定位，只负责把用户送到最合适的起点。</p>
+          </div>
+          <div class="site-map" id="site-map"></div>
+        </div>
+      </section>
+
+      <section class="rationale-section shell" id="rationale">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> PRODUCT RATIONALE</p>
+          <h2>这个 Demo 在验证什么</h2>
+        </div>
+        <div class="rationale-grid">
+          <article class="rationale-card accent-card">
+            <span class="card-number">01</span>
+            <h3>观察</h3>
+            <p>主站、CHAIN、Crypto、ETF 都已有自己的首页和任务入口；首次用户仍要先理解“哪个站点解决哪类问题”。</p>
+            <div class="mini-diagram"><span>问题</span><i>→</i><span class="muted">先认站点</span><i>→</i><span>找内容</span></div>
+          </article>
+          <article class="rationale-card">
+            <span class="card-number">02</span>
+            <h3>方案</h3>
+            <p>增加一层跨站意图路由。先识别目标、经验和时间，再返回三步路径与原站链接，不重做已有内容。</p>
+            <div class="mini-diagram"><span>问题</span><i>→</i><span class="highlight">生成路径</span><i>→</i><span>直接开始</span></div>
+          </article>
+          <article class="rationale-card">
+            <span class="card-number">03</span>
+            <h3>可扩展性</h3>
+            <p>规则路由可逐步接入语义检索、内容索引与用户行为反馈，并生成可被搜索引擎收录的主题落地页。</p>
+            <ul class="tech-list">
+              <li><span>Agentic Search</span><small>跨站召回与重排</small></li>
+              <li><span>SEO</span><small>搜索意图落地页</small></li>
+              <li><span>Analytics</span><small>路径点击与完成率</small></li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="experiment-plan">
+          <div>
+            <p class="eyebrow"><span></span> FIRST EXPERIMENT</p>
+            <h3>两周能验证的最小闭环</h3>
+          </div>
+          <ol>
+            <li><strong>埋点</strong><span>goal_selected → path_generated → step_opened</span></li>
+            <li><strong>对照</strong><span>主页原入口 vs. 目标式入口</span></li>
+            <li><strong>指标</strong><span>首步点击率、跨站深度、7 日回访</span></li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <div>
+          <strong>WISE PATH</strong>
+          <p>杜志威 · 网站开发岗位应聘 Demo</p>
+        </div>
+        <p class="footer-note">
+          基于公开页面制作的独立概念原型，与 Wise Invest 无隶属关系。页面不提供投资建议。
+        </p>
+        <a href="#top">回到顶部 ↑</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status">路径摘要已复制</div>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
