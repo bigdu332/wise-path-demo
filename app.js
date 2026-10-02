@@ -13,7 +13,7 @@ const destinations = [
   { id: "sim", mark: "SM", name: "Wise SIM", role: "海外通信", desc: "海外手机卡选购、教程与售后入口。", url: "https://www.wise-sim.org/" }
 ];
 
-const state = { goal: "us", experience: "beginner", time: "30", question: "" };
+const state = { goal: "us", focus: "default", experience: "beginner", time: "30", question: "" };
 let currentPlan = null;
 
 const pathList = document.querySelector("#path-list");
@@ -24,16 +24,20 @@ const fitEl = document.querySelector("#result-fit");
 const questionEl = document.querySelector("#question");
 const stepCountEl = document.querySelector("#step-count");
 const routeReasonEl = document.querySelector("#route-reason");
+const focusOptionsEl = document.querySelector("#focus-options");
+const resultNoteEl = document.querySelector("#result-note");
 
 function setSegment(control, value) {
   document.querySelectorAll(`[data-control="${control}"] button`).forEach((button) => {
     button.classList.toggle("active", button.dataset.value === value);
+    button.setAttribute("aria-pressed", String(button.dataset.value === value));
   });
 }
 
 function renderPath() {
   currentPlan = Engine.buildPlan(state);
   state.goal = currentPlan.goal;
+  state.focus = currentPlan.focus;
 
   kickerEl.textContent = `${currentPlan.label} · ${Engine.experienceLabels[currentPlan.experience]} · ${Engine.timeRules[currentPlan.time].label}`;
   titleEl.textContent = currentPlan.title;
@@ -41,6 +45,11 @@ function renderPath() {
   fitEl.textContent = currentPlan.matchText;
   stepCountEl.textContent = String(currentPlan.steps.length);
   routeReasonEl.innerHTML = currentPlan.reasonTags.map((tag) => `<span>${tag}</span>`).join("");
+  resultNoteEl.textContent = currentPlan.note;
+  focusOptionsEl.innerHTML = Engine.goalConfigs[currentPlan.goal].options.map(option => `
+    <button type="button" class="focus-option ${option.id === currentPlan.focus ? "active" : ""}"
+      data-focus="${option.id}" aria-pressed="${option.id === currentPlan.focus}">${option.label}</button>
+  `).join("");
 
   pathList.innerHTML = currentPlan.steps.map((step, index) => `
     <article class="path-card">
@@ -49,7 +58,7 @@ function renderPath() {
         <div class="path-meta">
           <span class="site-pill">${step.site}</span>
           <span>${step.type}</span><span>·</span><span>${step.time}</span>
-          ${step.auth ? '<span class="auth-pill">WISE ID</span>' : ""}
+          ${step.access ? `<span class="auth-pill">${step.access}</span>` : ""}
         </div>
         <h4>${step.title}</h4>
         <p>${step.desc}</p>
@@ -61,6 +70,7 @@ function renderPath() {
   document.querySelectorAll(".goal-option").forEach((button) => {
     const visualGoal = currentPlan.goal === "sim" ? "overseas" : currentPlan.goal;
     button.classList.toggle("active", button.dataset.goal === visualGoal);
+    button.setAttribute("aria-pressed", String(button.dataset.goal === visualGoal));
   });
 
   return currentPlan;
@@ -69,10 +79,24 @@ function renderPath() {
 document.querySelectorAll(".goal-option").forEach((button) => {
   button.addEventListener("click", () => {
     state.goal = button.dataset.goal;
+    state.focus = "default";
     state.question = "";
     questionEl.value = "";
     renderPath();
   });
+});
+
+focusOptionsEl.addEventListener("click", event => {
+  const button = event.target.closest("button[data-focus]");
+  if (!button) return;
+  state.focus = button.dataset.focus;
+  if (state.goal === "overseas" && state.focus === "sim") {
+    state.goal = "sim";
+    state.focus = "default";
+  }
+  state.question = "";
+  questionEl.value = "";
+  renderPath();
 });
 
 document.querySelectorAll(".segmented").forEach((group) => {
@@ -93,18 +117,19 @@ document.querySelector("#path-form").addEventListener("submit", (event) => {
 });
 
 document.querySelector("#copy-path").addEventListener("click", async (event) => {
+  const button = event.currentTarget;
   const plan = currentPlan || renderPath();
   const text = [
     `Wise Path｜${plan.title}`,
-    `目标：${plan.label}｜经验：${Engine.experienceLabels[plan.experience]}｜时间：${Engine.timeRules[plan.time].label}｜预计：${plan.totalMinutes} 分钟`,
+    `目标：${plan.label} / ${plan.focusLabel}｜经验：${Engine.experienceLabels[plan.experience]}｜时间：${Engine.timeRules[plan.time].label}｜预计阅读：${plan.totalMinutes} 分钟`,
     plan.question ? `问题：${plan.question}` : "",
-    ...plan.steps.map((step, index) => `${index + 1}. ${step.title}（${step.site} · ${step.time}）\n${step.url}`)
+    ...plan.steps.map((step, index) => `${index + 1}. ${step.title}（${step.site} · ${step.time}${step.access ? ` · ${step.access}` : ""}）\n${step.desc}\n${step.url}`),
+    plan.note
   ].filter(Boolean).join("\n");
 
   try {
     await navigator.clipboard.writeText(text);
     const toast = document.querySelector("#toast");
-    const button = event.currentTarget;
     const previous = button.textContent;
     button.textContent = "已复制";
     toast.classList.add("show");
@@ -134,14 +159,15 @@ function registerWebMCP() {
   register({
     name: "generate_wise_learning_path",
     title: "生成 Wise 学习路径",
-    description: "根据目标、经验和可用时间更新页面中的 Wise 跨站路径；时间会改变步骤数，经验会改变入口和页面序列。",
+    description: "根据目标、具体任务、经验和阅读时间更新 Wise 路径。各时间预算有独立路线，不为凑数增加页面；question 中识别到的任务优先于 goal 和 focus。",
     inputSchema: {
       type: "object",
       properties: {
         goal: { type: "string", enum: ["us", "etf", "crypto", "hold", "ipo", "overseas", "sim", "general"] },
         experience: { type: "string", enum: ["beginner", "familiar", "active"] },
         time: { type: "string", enum: ["10", "30", "deep"] },
-        question: { type: "string", maxLength: 120 }
+        question: { type: "string", maxLength: 120 },
+        focus: { type: "string", description: "可选具体任务：us 为 default/industry/macro/company；etf 为 default/limits/premium/dca；crypto 为 default/dca/futures/exchange；hold 为 default/people/strategy；ipo 为 default/hk/us/cn；overseas 为 default/broker/witness/sim；sim 为 default/use/esim/orders。" }
       },
       required: ["goal", "experience", "time"],
       additionalProperties: false
@@ -152,6 +178,7 @@ function registerWebMCP() {
         throw new Error("Unsupported goal, experience, or time value.");
       }
       state.goal = input.goal;
+      state.focus = typeof input.focus === "string" ? input.focus : "default";
       state.experience = input.experience;
       state.time = input.time;
       state.question = typeof input.question === "string" ? input.question.slice(0, 120) : "";
@@ -175,4 +202,6 @@ function registerWebMCP() {
 }
 
 renderPath();
+setSegment("experience", state.experience);
+setSegment("time", state.time);
 registerWebMCP();

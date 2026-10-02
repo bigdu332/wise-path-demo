@@ -1,0 +1,22 @@
+{
+  "reviewedAt": "2026-10-02",
+  "method": "原站正文、导航与浏览器可见访问状态；未主动登录，未执行任何金融或账户操作。CHAIN 后续显示已有会员会话，故不据此认定页面均公开。",
+  "limits": "这是页面用途审查，不是财务数据、产品资格或费用条款的核验。动态数据和访问条件可能变化。",
+  "findings": [
+    {"urls": ["https://www.wise-invest.org/start", "https://www.wise-invest.org/roadmap"], "observed": "主站入门围绕账户、支付和长期跟踪；roadmap 是账户与资金路径。", "decision": "保留在任务导航和开户分支，不再当美股基础课程。"},
+    {"urls": ["https://chain.wise-invest.org/learn/stocks", "https://chain.wise-invest.org/learn/lessons/stock-trading-basics", "https://chain.wise-invest.org/learn/lessons/read-three-statements"], "observed": "股票学习路线包含具体课程；股票基础和三表课程正文在当前会话可读，目录连到公司、估值、风险课程。", "decision": "新手进入具体课程，30 分钟保留风险意识；系统路线增加财报和估值。访问标为可能需要 Wise ID。"},
+    {"urls": ["https://chain.wise-invest.org/chain", "https://chain.wise-invest.org/companies", "https://chain.wise-invest.org/learn/macro", "https://chain.wise-invest.org/learn/macro/lab", "https://chain.wise-invest.org/research"], "observed": "产业图谱、公司目录、宏观图与实验室可访问；研究记录仅保存于当前浏览器。", "decision": "按产业、宏观、公司任务各自安排，并以研究记录收束。"},
+    {"urls": ["https://chain.wise-invest.org/chain?industry=storage", "https://chain.wise-invest.org/chain?industry=robotics", "https://chain.wise-invest.org/chain?industry=space", "https://chain.wise-invest.org/chain?industry=energy"], "observed": "通过原站产业按钮确认 storage、robotics、space、energy 参数；公司目录也支持这些值。", "decision": "识别到具体产业时，地图和公司目录一起定位该产业，避免全部落到默认 AI。"},
+    {"urls": ["https://chain.wise-invest.org/signals", "https://chain.wise-invest.org/companies/earnings"], "observed": "事件页标为研究预览；财报页在本次访问中缺少可核验的数据记录。", "decision": "事件卡明确标预览、要求核对来源；财报学习优先链接课程而非空数据工作台。"},
+    {"urls": ["https://www.wise-invest.org/book/nasdaq"], "observed": "目录提供 chapter-XX 章节锚点，覆盖产品层次、QDII、场内产品、筛选方法、定投与个人计划。", "decision": "按任务跳到相关章节，不要求用户从整本书首页寻找内容。"},
+    {"urls": ["https://www.wise-etf.com/chooser", "https://www.wise-etf.com/today/qdii-limits", "https://www.wise-etf.com/today/etf-premium"], "observed": "公开比较工具有账户/投入条件；额度与溢价保留日期和缺失状态。溢价是收盘快照，不是盘中 IOPV。", "decision": "分额度、溢价、路径比较与定投任务；数据缺失保持待确认。"},
+    {"urls": ["https://www.wise-etf.com/qdii", "https://www.wise-etf.com/lazy"], "observed": "本次访问进入 Wise ID 登录流程，未读取正文。", "decision": "从默认路线移除，不再凭 URL 推断为估值或配置教学。"},
+    {"urls": ["https://crypto.wise-invest.org/", "https://crypto.wise-invest.org/learn", "https://crypto.wise-invest.org/tools", "https://crypto.wise-invest.org/learn/futures-intro"], "observed": "总览公开介绍行情、计算工具与合约课；学习、工具和合约课要求 Wise ID。", "decision": "需登录页面标识要求且描述以公开介绍为限；只有合约任务进入该课程。"},
+    {"urls": ["https://crypto.wise-invest.org/exchanges", "https://www.wise-invest.org/perk/crypto"], "observed": "Crypto 开户页本次未读到正文，主站加密产品入口公开提供平台及教程链接。", "decision": "平台分支改用主站可读入口，页面仍需复核适用条件。"},
+    {"urls": ["https://www.wise-invest.org/practice/dca-investment", "https://www.wise-invest.org/tools"], "observed": "BTC/ETH 页面是作者定投明细与历史收益记录；工具目录提供复利、仓位与合约计算器。", "decision": "定投案例与测算搭配；合约工具仅用于明确的合约学习任务。"},
+    {"urls": ["https://www.wise-hold.com/institutions", "https://www.wise-hold.com/celebrities", "https://www.wise-hold.com/mag7", "https://www.wise-hold.com/wisdom"], "observed": "机构与人物页包含不同披露口径；mag7 是巨头战略投资/收购版图；智慧库提供原文检索。", "decision": "三类任务分开；机构变化接公司和财报研究，不再混入特朗普或把战略投资误写成机构敞口。"},
+    {"urls": ["https://www.wise-ipo.com/", "https://www.wise-ipo.com/guides", "https://www.wise-ipo.com/markets/hk", "https://www.wise-ipo.com/markets/us", "https://www.wise-ipo.com/markets/cn"], "observed": "市场页明示本地数据快照；guides 主要为券商开户、入金和申购教程。", "decision": "未选市场先分流；明确市场后只安排该市场与对应流程核对，不宣称实时机会。"},
+    {"urls": ["https://www.wise-invest.org/articles/bank", "https://www.wise-invest.org/articles/broker", "https://www.wise-witness.com/"], "observed": "银行/券商教程有用途和材料说明；见证服务有资金、持有期、材料及网点条件。", "decision": "普通开户与见证分离；见证先核对适用门槛，再看流程和网点。"},
+    {"urls": ["https://www.wise-sim.org/shop", "https://www.wise-sim.org/guides", "https://www.wise-sim.org/guides/giffgaff-complete-guide", "https://www.wise-sim.org/guides/xesim", "https://www.wise-sim.org/account/orders"], "observed": "教程按卡种分开，商城提供产品及开通条件；订单页使用 Wise ID，说明旧账户订单不自动同步。", "decision": "选卡、使用、eSIM、查单分流；指定 giffgaff 时直达对应教程；经验不等于已购买。"}
+  ]
+}
